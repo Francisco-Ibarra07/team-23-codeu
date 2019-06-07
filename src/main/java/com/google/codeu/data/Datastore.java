@@ -55,10 +55,10 @@ public class Datastore {
   public List<Message> getMessages(String user) {
     List<Message> messages = new ArrayList<>();
 
-    Query query =
-        new Query("Message")
-            .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
-            .addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query("Message")
+        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+        .addSort("timestamp", SortDirection.DESCENDING);
+
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
@@ -70,7 +70,8 @@ public class Datastore {
 
         Message message = new Message(id, user, text, timestamp);
         messages.add(message);
-      } catch (Exception e) {
+      } 
+      catch (Exception e) {
         System.err.println("Error reading message.");
         System.err.println(entity.toString());
         e.printStackTrace();
@@ -80,31 +81,33 @@ public class Datastore {
     return messages;
   }
 
-   /** Stores the User in Datastore. */
- public void storeUser(User user) {
-  Entity userEntity = new Entity("User", user.getEmail());
-  userEntity.setProperty("email", user.getEmail());
-  userEntity.setProperty("aboutMe", user.getAboutMe());
-  datastore.put(userEntity);
- }
+  /** Stores the User in Datastore. */
+  public void storeUser(User user) {
+    Entity userEntity = new Entity("User", user.getEmail());
+    userEntity.setProperty("email", user.getEmail());
+    userEntity.setProperty("aboutMe", user.getAboutMe());
+    datastore.put(userEntity);
+  }
  
  /**
   * Returns the User owned by the email address, or
   * null if no matching User was found.
   */
- public User getUser(String email) {
- 
-  Query query = new Query("User")
-    .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
-  PreparedQuery results = datastore.prepare(query);
-  Entity userEntity = results.asSingleEntity();
-  if(userEntity == null) {
-   return null;
+  public User getUser(String email) {
+
+    Query query = new Query("User")
+        .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
+        
+    PreparedQuery results = datastore.prepare(query);
+    Entity userEntity = results.asSingleEntity();
+    
+    if(userEntity == null) {
+      return null;
+    }
+
+    String aboutMe = (String) userEntity.getProperty("aboutMe");
+    User user = new User(email, aboutMe);
+
+    return user;
   }
-  
-  String aboutMe = (String) userEntity.getProperty("aboutMe");
-  User user = new User(email, aboutMe);
-  
-  return user;
- }
 }
