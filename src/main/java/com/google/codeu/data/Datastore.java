@@ -70,8 +70,7 @@ public class Datastore {
 
         Message message = new Message(id, user, text, timestamp);
         messages.add(message);
-      } 
-      catch (Exception e) {
+      } catch (Exception e) {
         System.err.println("Error reading message.");
         System.err.println(entity.toString());
         e.printStackTrace();
@@ -107,8 +106,7 @@ public class Datastore {
         // A Message object is constructed from a user's UUID, user's email, their message, and a timestamp
         Message message = new Message(id, user, text, timestamp);
         messages.add(message);
-      } 
-      catch (Exception e) {
+      } catch (Exception e) {
         System.err.println("Error reading message.");
         System.err.println(entity.toString());
         e.printStackTrace();
