@@ -17,6 +17,8 @@
 /* Prevent the page from becoming too wide. */
 body {
   max-width: 600px;
+  color: skyblue;
+  font-family: 'Teko', sans-serif;
 }
 
 /* Remove bullet points from navigation bar. */
@@ -25,8 +27,18 @@ nav ul {
   padding-left: 0;
 }
 
+ul {
+  color: slategrey;
+}
+
 /* Keep navigation menu on one line. */
 nav li {
   display: inline-block;
   margin-right: 10px
+}
+
+big {
+  font-size: 50px;
+  color: red;
+  text-align: center;
 }
