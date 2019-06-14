@@ -78,12 +78,19 @@ public class MessageServlet extends HttpServlet {
     String user = userService.getCurrentUser().getEmail();
     String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
-    // Take any http links to png or jpg images and replace them as the source for an HTML 'img' tag
-    String regex = "(https?://\\S+\\.(png|jpg|gif))";
-    String replacement = "<img src=\"$1\" />";
-    String textWithImageReplaced = userText.replaceAll(regex, replacement);
+    String imageRegex = "(https?://\\S+\\.(png|jpg|gif))";
+    String videoRegex = "(https?://\\S+\\.(mp4|webm|ogg|3gp))";
 
-    Message message = new Message(user, textWithImageReplaced);
+    String imageReplacement = "<img src=\"$1\" alt=\"Couldn't load image\" />";
+    String videoReplacement = "\n<video width=\"320\" height=\"240\" controls>\n" + 
+                              "<source src=\"$1\" type=\"video/mp4\">\n" +
+                              "</video>";
+
+    // Replace any image or video links as <img> tags so they can be rendered on a website                      
+    String newText = userText.replaceAll(imageRegex, imageReplacement); 
+    newText = userText.replaceAll(videoRegex, videoReplacement);        
+  
+    Message message = new Message(user, newText);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);
