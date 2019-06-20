@@ -14,20 +14,18 @@
 	    	var book_data = new google.visualization.DataTable();
 
 	    	//creating two columns for datatable
-	    	book_data.addColumn('string', 'Book Title');
-	    	book_data.addColumn('number', 'Votes'); 
+	    	book_data.addColumn('string', 'Country');
+	    	book_data.addColumn('number', 'Population (million)'); 
 
 	    	//adding data for datatable
 	    	book_data.addRows([
-	    		["The Best We Could Do", 6],
-	    		["Sing, Unburied, Sing", 10],
-	    		["The Book of Unknown Americans", 7],
-	    		["The 57 Bus", 4],
-	    		["The Handmaid's Tale", 8]
+	    		["United States", 300],
+	    		["Canada", 37],
+	    		["Mexico", 129],
 	    	]); 
 
 	    	//create new instance of chart and draw it 
-	    	var chart = new google.visualization.BarChart(document.getElementById('book_chart')); 
+	    	var chart = new google.visualization.GeoChart(document.getElementById('book_chart')); 
 	    	chart.draw(book_data); 
 
 	    }
