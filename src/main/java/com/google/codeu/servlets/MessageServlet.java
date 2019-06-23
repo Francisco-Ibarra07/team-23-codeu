@@ -84,13 +84,13 @@ public class MessageServlet extends HttpServlet {
 
     // If a link is found, this is what it would be replaced with
     String imageReplacement = "<img src=\"$1\" alt=\"Couldn't load image\" />";
-    String videoReplacement = "\n<video width=\"320\" height=\"240\" controls>\n" + 
+    String videoReplacement = "\n<video width=\"320\" height=\"240\" controls loop>\n" + 
                               "<source src=\"$1\" type=\"video/mp4\">\n" +
                               "</video>";
 
     // Replace any image or video links as <img> tags so they can be rendered on a website                      
     String newText = userText.replaceAll(imageRegex, imageReplacement); 
-    newText = userText.replaceAll(videoRegex, videoReplacement);        
+    newText = newText.replaceAll(videoRegex, videoReplacement);        
   
     // Store new text to the database
     Message message = new Message(user, newText);
