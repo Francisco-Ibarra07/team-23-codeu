@@ -40,11 +40,27 @@
   margin: 5px;
 }
 
+.message-body figure {
+  border: thin #c0c0c0 solid;
+  display: flex;
+  flex-flow: column;
+  padding: 5px;
+  max-width: 220px;
+  margin: auto;
+}
+
 /* Restricts the size of images. */
 .message-body img {
-  display: block;
-  margin-top: 25px;
-  max-width: 75%;
+  max-width: 220px;
+  max-height: 150px;
+}
+
+.message-body figcaption {
+  background-color: #222;
+  color: #fff;
+  font: italic smaller sans-serif;
+  padding: 3px;
+  text-align: center;
 }
 
 /* Use this to hide certain elements like forms if the
