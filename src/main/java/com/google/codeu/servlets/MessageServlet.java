@@ -104,7 +104,7 @@ public class MessageServlet extends HttpServlet {
    * @param userText is the incoming text that the user typed in before hitting "Submit"
    * @return the new text containing HTML content
    */
-  public String detectAndReplaceMediaLinks(String userText) {
+  private String detectAndReplaceMediaLinks(String userText) {
 
     String updatedText;
 
