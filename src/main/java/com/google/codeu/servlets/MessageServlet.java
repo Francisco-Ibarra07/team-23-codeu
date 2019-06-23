@@ -90,6 +90,20 @@ public class MessageServlet extends HttpServlet {
     response.sendRedirect("/user-page.html?user=" + user);
   }
 
+  /**
+   * This method defines some Regular Expressions (RegEx) to detect any URL's linking to images or videos.
+   * 
+   * If a URL link is found, the link in the string is replaced and stored with a <img> or <video> HTML tag so 
+   * that the link is rendered when the user page is refreshed.
+   * 
+   * If a format like '![caption here](/url/of/image.jpg)' is detected, the link will be stored in a <figure> HTML tag.
+   * This <figure> tag helps by putting both the image and text in one container.
+   * 
+   * If no links were found, the user text will not be affected.
+   * 
+   * @param userText is the incoming text that the user typed in before hitting "Submit"
+   * @return the new text containing HTML content
+   */
   public String detectAndReplaceMediaLinks(String userText) {
 
     String updatedText;
