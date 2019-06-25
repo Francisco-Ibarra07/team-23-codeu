@@ -40,6 +40,9 @@
   margin: 5px;
 }
 
+/* Defines the dimensions of the figure container. 
+   Both an image and a figcaption will be 
+   encapsulated in one of these figure containers. */
 .message-body figure {
   border: thin #c0c0c0 solid;
   display: flex;
@@ -55,6 +58,8 @@
   max-height: 150px;
 }
 
+/* Defines the text style of the image caption.
+   Sets the font and centers the text. */
 .message-body figcaption {
   background-color: #222;
   color: #fff;
