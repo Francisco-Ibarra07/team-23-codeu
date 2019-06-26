@@ -27,6 +27,7 @@ nav ul {
   padding-left: 0;
 }
 
+/* identifies elements in unordered list. */
 ul {
   color: slategrey;
 }
@@ -37,6 +38,7 @@ nav li {
   margin-right: 10px
 }
 
+/* Keeps tagged text as larger text and different color than headers */
 big {
   font-size: 50px;
   color: red;
