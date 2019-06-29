@@ -40,6 +40,34 @@
   margin: 5px;
 }
 
+/* Defines the dimensions of the figure container. 
+   Both an image and a figcaption will be 
+   encapsulated in one of these figure containers. */
+.message-body figure {
+  border: thin #c0c0c0 solid;
+  display: flex;
+  flex-flow: column;
+  padding: 5px;
+  max-width: 220px;
+  margin: auto;
+}
+
+/* Restricts the size of images. */
+.message-body img {
+  max-width: 220px;
+  max-height: 150px;
+}
+
+/* Defines the text style of the image caption.
+   Sets the font and centers the text. */
+.message-body figcaption {
+  background-color: #222;
+  color: #fff;
+  font: italic smaller sans-serif;
+  padding: 3px;
+  text-align: center;
+}
+
 /* Use this to hide certain elements like forms if the
    user is not logged in or viewing their own page. */
 .hidden {
