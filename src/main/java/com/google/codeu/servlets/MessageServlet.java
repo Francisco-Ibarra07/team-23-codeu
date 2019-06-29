@@ -82,7 +82,7 @@ public class MessageServlet extends HttpServlet {
 
     // Utilize helper method to replace any image links into html tags
     String newText = detectAndReplaceMediaLinks(userText);
-  
+    
     // Store new text to the database
     Message message = new Message(user, newText);
     datastore.storeMessage(message);
