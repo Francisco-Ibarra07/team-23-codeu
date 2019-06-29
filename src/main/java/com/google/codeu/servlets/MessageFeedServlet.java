@@ -29,8 +29,7 @@ public class MessageFeedServlet extends HttpServlet{
   * Responds with a JSON representation of Message data for all users.
   */
  @Override
- public void doGet(HttpServletRequest request, HttpServletResponse response)
-   throws IOException {
+ public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
   // Set the type of content that will be returned to 'json' format instead of html
   response.setContentType("application/json");
