@@ -21,9 +21,9 @@ public class MessageFeedServlet extends HttpServlet{
  private Datastore datastore;
 
  @Override
- public void init() {
-  datastore = new Datastore();
- }
+  public void init() {
+    datastore = new Datastore();
+  }
  
  /**
   * Responds with a JSON representation of Message data for all users.
@@ -31,17 +31,17 @@ public class MessageFeedServlet extends HttpServlet{
  @Override
  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-  // Set the type of content that will be returned to 'json' format instead of html
-  response.setContentType("application/json");
-  
-  // Use the datastore object to get a list of posted messages across ALL users
-  List<Message> messages = datastore.getAllMessages();
-  Gson gson = new Gson();
+    // Set the type of content that will be returned to 'json' format instead of html
+    response.setContentType("application/json");
 
-  // Convert the messages into JSON format
-  String json = gson.toJson(messages);
-  
-  // Return this json to the requestee
-  response.getOutputStream().println(json);
- }
+    // Use the datastore object to get a list of posted messages across ALL users
+    List<Message> messages = datastore.getAllMessages();
+    Gson gson = new Gson();
+
+    // Convert the messages into JSON format
+    String json = gson.toJson(messages);
+
+    // Return this json to the requestee
+    response.getOutputStream().println(json);
+  }
 }
