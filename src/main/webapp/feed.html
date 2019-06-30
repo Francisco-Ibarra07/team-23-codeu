@@ -41,6 +41,8 @@
         
         const bodyDiv = document.createElement('div');
         bodyDiv.classList.add('message-body');
+        // Sets this div's content to be what was read from Datastore
+        // Makes it so that any HTML tags are appended onto this div and not just treated as text
         bodyDiv.innerHTML = message.text;
         
         const messageDiv = document.createElement('div');
