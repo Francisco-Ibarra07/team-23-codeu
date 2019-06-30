@@ -3,7 +3,7 @@
 <head>
   <title>Stats</title>
   <link rel="stylesheet" href="/css/main.css">
-  
+  <script src="/js/navigation-loader.js"></script>
   <script>
     // Fetch stats and display them in the page.
     function fetchStats(){
@@ -28,6 +28,8 @@
     // Fetch data and populate the UI of the page.
     function buildUI(){
      fetchStats();
+     //add links to my page and logout
+     addLoginOrLogoutLinkToNavigation(); 
     }
   </script>
   <head>
@@ -36,19 +38,19 @@
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
   </head>
+  <body onload="buildUI()">
     <nav>
       <ul id="navigation">
-        <li><a href="home.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="aboutus.html">About Our Team</a></li>
         <li><a href="updates.html">Updates</a></li>
         <li><a href="stats.html">Site Stats</a></li>
       </ul>
     </nav>
-<body onload="buildUI()">
-<div id="content">
-  <h1>Site Statistics</h1>
-  <hr/>
+  <div id="content">
+    <h1>Site Statistics</h1>
+    <hr/>
   <div id="stats-container">Loading...</div>
-</div>
+  </div>
 </body>
 </html>

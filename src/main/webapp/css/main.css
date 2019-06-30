@@ -21,6 +21,10 @@ body {
   font-family: 'Teko', sans-serif;
 }
 
+nav {
+  background: none;
+}
+
 /* Remove bullet points from navigation bar. */
 nav ul {
   list-style-type: none;
