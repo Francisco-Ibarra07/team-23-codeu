@@ -10,23 +10,13 @@
 	    google.charts.setOnLoadCallback(drawChart);
 	    //actually draws the chart
 	    function drawChart(){
-	    	//creates new datatable instance. each column has a datatype, label (optional) and id (optional)
-	    	var book_data = new google.visualization.DataTable();
-
-	    	//creating two columns for datatable
-	    	book_data.addColumn('string', 'Country');
-	    	book_data.addColumn('number', 'Population (million)'); 
-
-	    	//adding data for datatable
-	    	book_data.addRows([
-	    		["United States", 300],
-	    		["Canada", 37],
-	    		["Mexico", 129],
-	    	]); 
-
-	    	//create new instance of chart and draw it 
-	    	var chart = new google.visualization.GeoChart(document.getElementById('book_chart')); 
-	    	chart.draw(book_data); 
+	      fetch("/bookchart")
+          .then((response) => {
+            return response.json();
+          })
+          .then((bookJson) => {
+            console.log(bookJson);
+          });
 	    }
     </script>
   </head>
