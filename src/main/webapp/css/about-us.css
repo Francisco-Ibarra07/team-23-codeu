@@ -1,0 +1,27 @@
+#about {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap; 
+}
+
+#about div {
+  margin: 20px;
+}
+
+#about div img {
+  width: 300px;
+  height: 400px;
+  border-radius: 50%;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+}
+
+.team li {
+  max-width: 350px;
+  font-family: 'Open-Sans', sans-serif; 
+  font-size: 14px; 
+  color: #919191;
+}
