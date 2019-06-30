@@ -4,6 +4,9 @@
     <title>Message Feed</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
+    <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="/js/navigation-loader.js"></script>
     <script>
       // Fetch messages and add them to the page.
       function fetchMessages(){
@@ -56,10 +59,20 @@
       // Fetch data and populate the UI of the page.
       function buildUI(){
         fetchMessages();
+        addLoginOrLogoutLinkToNavigation();
       }
     </script>
   </head>
   <body onload="buildUI()">
+    <nav>
+      <ul id="navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About Our Team</a></li>
+        <li><a href="updates.html">Updates</a></li>
+        <li><a href="stats.html">Site Stats</a></li>
+        <li><a href="feed.html"> Public Feed </a></li>
+      </ul>
+    </nav>
     <div id="content">
       <h1>Message Feed</h1>
       <hr/>
