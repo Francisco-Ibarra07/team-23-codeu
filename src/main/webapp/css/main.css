@@ -16,19 +16,22 @@
 
 /* Prevent the page from becoming too wide. */
 body {
-  max-width: 600px;
+  max-width: 95%;
+  margin: auto;
   color: skyblue;
   font-family: 'Teko', sans-serif;
 }
 
 nav {
-  background: none;
+  min-width: 100%;
+  padding-right: 20px;
 }
 
 /* Remove bullet points from navigation bar. */
 nav ul {
   list-style-type: none;
-  padding-left: 0;
+  padding-left: 0; 
+
 }
 
 /* identifies elements in unordered list. */
@@ -42,6 +45,17 @@ nav li {
   margin-right: 10px
 }
 
+nav li a {
+  text-decoration: none; 
+}
+
+nav li a:visited{
+  color: black;
+}
+
+nav li a:hover{
+  color: skyblue;
+}
 /* Keeps tagged text as larger text and different color than headers */
 big {
   font-size: 50px;

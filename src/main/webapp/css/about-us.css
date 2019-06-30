@@ -1,0 +1,28 @@
+#about{
+	display: flex;
+	justify-content: center;
+	flex-flow: row wrap; 
+}
+
+#about div{
+	margin: 20px;
+}
+
+#about div img{
+	max-width: 300px;
+	max-height: 400px;
+}
+
+.team {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.team li {
+	max-width: 350px;
+}
+
+.team li{
+	color: black;
+}
