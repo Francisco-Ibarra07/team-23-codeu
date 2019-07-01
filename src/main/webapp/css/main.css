@@ -16,17 +16,59 @@
 
 /* Prevent the page from becoming too wide. */
 body {
-  max-width: 600px;
+  max-width: 95%;
+  margin: auto;
+  color: #919191;
+  font-family: 'Teko', sans-serif;
+  font-size: 18px;
+  height: 100%;
+}
+
+h1 {
+  color: #6e6e6e;
+}
+
+
+nav {
+  min-width: 100%;
+  padding-right: 20px;
+  padding-top: 20px;
+  height: 50px;
+  margin-top: -20px;
 }
 
 /* Remove bullet points from navigation bar. */
 nav ul {
   list-style-type: none;
-  padding-left: 0;
+  padding-left: 0; 
+
+}
+
+/* identifies elements in unordered list. */
+ul {
+  color: #6e6e6e;
 }
 
 /* Keep navigation menu on one line. */
 nav li {
   display: inline-block;
-  margin-right: 10px
+  margin-right: 10px; 
+}
+
+nav li a {
+  text-decoration: none; 
+}
+
+nav li a:visited{
+  color: black;
+}
+
+nav li a:hover{
+  color: #667AFA;
+}
+/* Keeps tagged text as larger text and different color than headers */
+big {
+  font-size: 50px;
+  color: red;
+  text-align: center;
 }

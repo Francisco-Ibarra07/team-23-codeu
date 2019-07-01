@@ -1,0 +1,15 @@
+
+img {
+  display: block;
+  margin: auto;
+}
+
+p {
+  font-family: 'Open-Sans', sans-serif; 
+  color: #919191;
+}
+
+.content{
+  display: block;
+  margin: auto;
+}

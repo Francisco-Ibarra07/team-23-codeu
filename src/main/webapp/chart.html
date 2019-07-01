@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A New Chart</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart(){
+          fetch("/bookchart")
+              .then((response) => {
+                return response.json();
+              })
+              .then((bookJson) => {
+                var bookData = new google.visualization.DataTable();
+                //define columns for the DataTable instance
+                bookData.addColumn('string', 'Book Title');
+                bookData.addColumn('number', 'Rating');
+
+                for (i = 0; i < bookJson.length; i++) {
+                  bookRow = [];
+                  var title = bookJson[i].title;
+                  var ratings = bookJson[i].rating;
+                  bookRow.push(title, ratings);
+
+                  bookData.addRow(bookRow);
+               }
+               var chartOptions = {
+                  width: 800,
+                  height: 400
+                };
+               var bookChart = new google.visualization.BarChart(document.getElementById('book_chart'));
+               bookChart.draw(bookData, chartOptions);
+           })
+        }
+    </script>
+  </head>
+  <body>
+    <h1>Chart Project</h1>
+    <div id="book_chart"></div>
+  </body>
+</html>

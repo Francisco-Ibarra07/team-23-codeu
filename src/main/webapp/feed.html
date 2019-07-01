@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Message Feed</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/user-page.css">
+    <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="/js/navigation-loader.js"></script>
+    <script>
+      // Fetch messages and add them to the page.
+      function fetchMessages(){
+        const url = '/feed';
+        fetch(url).then((response) => {
+          return response.json();
+        }).then((messages) => {
+          const messageContainer = document.getElementById('message-container');
+          if(messages.length == 0){
+            messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+          }
+          else{
+            messageContainer.innerHTML = '';  
+          }
+          messages.forEach((message) => {  
+            const messageDiv = buildMessageDiv(message);
+            messageContainer.appendChild(messageDiv);
+          });
+        });
+      }
+      
+      function buildMessageDiv(message){
+        const usernameDiv = document.createElement('div');
+        usernameDiv.classList.add("left-align");
+        usernameDiv.appendChild(document.createTextNode(message.user));
+        
+        const timeDiv = document.createElement('div');
+        timeDiv.classList.add('right-align');
+        timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
+        
+        const headerDiv = document.createElement('div');
+        headerDiv.classList.add('message-header');
+        headerDiv.appendChild(usernameDiv);
+        headerDiv.appendChild(timeDiv);
+        
+        const bodyDiv = document.createElement('div');
+        bodyDiv.classList.add('message-body');
+        // Sets this div's content to be what was read from Datastore
+        // Makes it so that any HTML tags are appended onto this div and not just treated as text
+        bodyDiv.innerHTML = message.text;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add("message-div");
+        messageDiv.appendChild(headerDiv);
+        messageDiv.appendChild(bodyDiv);
+        
+        return messageDiv;
+      }
+      
+      // Fetch data and populate the UI of the page.
+      function buildUI(){
+        fetchMessages();
+        addLoginOrLogoutLinkToNavigation();
+      }
+    </script>
+  </head>
+  <body onload="buildUI()">
+    <nav>
+      <ul id="navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About Our Team</a></li>
+        <li><a href="updates.html">Updates</a></li>
+        <li><a href="stats.html">Site Stats</a></li>
+        <li><a href="feed.html"> Public Feed </a></li>
+      </ul>
+    </nav>
+    <div id="content">
+      <h1>Message Feed</h1>
+      <p>This page shows all messages posted by every user on the app. Whatever users post on their personal feed is shown on this feed. This page is meant to be a communal page where users can see what everyone else on the app is trading or giving away.</p>
+      <hr/>
+      <div id="message-container">Loading...</div>
+    </div>
+  </body>
+</html>

@@ -17,21 +17,26 @@ limitations under the License.
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User Page</title>
     <meta charset="UTF-8">
+    <title>User Page</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   </head>
   <body onload="buildUI();">
     <nav>
       <ul id="navigation">
-        <li><a href="/">Home</a></li>
-        <li><a href="/aboutus.html">About Our Team</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About Our Team</a></li>
+        <li><a href="updates.html">Updates</a></li>
+        <li><a href="stats.html">Site Stats</a></li>
+        <li><a href="feed.html"> Public Feed </a></li>
       </ul>
     </nav>
     <h1 id="page-title">User Page</h1>
-
+    <p> This is a single user's personal page. They can update their personal information here (their address or pickup location for items, for example) and can also post items they want to trade (these posts will also appear on the public feed).</p>
     <div id="about-me-container">Loading...</div>
       <div id="about-me-form" class="hidden">
       <form action="/about" method="POST">
@@ -49,6 +54,11 @@ limitations under the License.
       <input type="submit" value="Submit">
     </form>
     <hr/>
+
+    <form id="upload-form" action="/image-uploader-form" method="GET">
+      Or you can upload an image from your computer here:
+      <input type="submit" value="Upload form">
+    </form>
 
     <div id="message-container">Loading...</div>
 
