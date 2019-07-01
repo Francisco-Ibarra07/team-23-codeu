@@ -26,9 +26,9 @@
                   bookData.addRow(bookRow);
                }
                var chartOptions = {
-                                 width: 800,
-                                 height: 400
-                   };
+                  width: 800,
+                  height: 400
+                };
                var bookChart = new google.visualization.BarChart(document.getElementById('book_chart'));
                bookChart.draw(bookData, chartOptions);
            })
