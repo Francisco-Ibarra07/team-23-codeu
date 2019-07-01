@@ -19,11 +19,11 @@ public class ChartServlet extends HttpServlet {
   private JsonArray bookRatingArray;
 
   // create file to help with serializing the data
-  private static class bookRating {
+  private static class BookRating {
     String title;
     double rating;
 
-    private bookRating (String title, double rating) {
+    private BookRating (String title, double rating) {
       this.title = title;
       this.rating = rating;
     }
@@ -45,7 +45,7 @@ public class ChartServlet extends HttpServlet {
       String curTitle = cells[5];
       double curRating = Double.parseDouble(cells[6]);
 
-      bookRatingArray.add(gson.toJsonTree(new bookRating(curTitle, curRating)));
+      bookRatingArray.add(gson.toJsonTree(new BookRating(curTitle, curRating)));
     }
     scanner.close();
   }
