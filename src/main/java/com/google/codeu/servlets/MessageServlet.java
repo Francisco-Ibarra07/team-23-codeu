@@ -112,6 +112,7 @@ public class MessageServlet extends HttpServlet {
     String imageRegex = "(https?://\\S+\\.(png|jpg|gif))";
     String videoRegex = "(https?://\\S+\\.(mp4|webm|ogg|3gp))";
     String localhostFormatRegex = "(https?://(localhost:8080/){1}.+)";
+    String liveappFormatRegex = "(https?://(lh3.googleusercontent.com){1}.+)";
     String imageCaptionFormatRegex = "!{1}\\[{1}(.+)]{1}\\({1}(https?://\\S+\\.(png|jpg|gif))\\){1}";
 
     // If a link is found, this is what it would be replaced with
@@ -128,7 +129,8 @@ public class MessageServlet extends HttpServlet {
       // Replace any image or video links as <img> tags so they can be rendered on a website                      
       updatedText = userText.replaceAll(imageRegex, imageReplacement); 
       updatedText = updatedText.replaceAll(videoRegex, videoReplacement);    
-      updatedText = updatedText.replaceAll(localhostFormatRegex, imageReplacement);    
+      updatedText = updatedText.replaceAll(localhostFormatRegex, imageReplacement); 
+      updatedText = updatedText.replaceAll(liveappFormatRegex, imageReplacement);   
     }
 
     return updatedText;
