@@ -39,6 +39,36 @@ public class Datastore {
     datastore = DatastoreServiceFactory.getDatastoreService();
   }
 
+  public Entity getMessageEntity(String userEmail, String messageId) {
+    Query query = new Query("Message")
+        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, userEmail))
+        .addSort("timestamp", SortDirection.DESCENDING);
+    
+    PreparedQuery results = datastore.prepare(query);
+    UUID targetId = UUID.fromString(messageId);
+    
+    for (Entity entity : results.asIterable()) {
+      try {
+        String idString = entity.getKey().getName();
+        UUID id = UUID.fromString(idString);
+        
+        if (targetId.equals(id)) {
+          return entity;
+        }
+      } catch (Exception e) {
+        System.err.println("Error reading message.");
+        System.err.println(entity.toString());
+        e.printStackTrace();
+      }
+    }
+
+    return null;
+  }
+
+  public void storeEntity(Entity entity) {
+    datastore.put(entity);
+  }
+
   /** Returns the total number of messages for all users. */
   public int getTotalMessageCount(){
     Query query = new Query("Message");

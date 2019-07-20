@@ -16,6 +16,9 @@
 
 package com.google.codeu.servlets;
 
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
@@ -59,8 +62,25 @@ public class EntityManagerServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     System.out.println("Request:");
-    String key = request.getReader().readLine();
+    String buffer = request.getReader().readLine();
     
+    System.out.println(buffer);
+    String[] array = buffer.split(" ");
+    String messageId = array[0].substring(1);
+    String userEmail = array[1].substring(0, array[1].length() - 1);
+    System.out.println(messageId);
+    System.out.println(userEmail);
+
+    Entity targetMessage = datastore.getMessageEntity(userEmail, messageId);
+    Boolean originalValue = (Boolean) targetMessage.getProperty("isFulfilled");
+
+    System.out.println(originalValue);
+    targetMessage.setProperty("isFulfilled", !originalValue);
+
+    datastore.storeEntity(targetMessage);
+
+    // response.sendRedirect("/user-page.html?user=" + userEmail);
+    response.sendRedirect("/index.html");
   }
 
 }

@@ -96,11 +96,11 @@ function buildMessageDiv(message) {
   button.innerHTML = "Set as fulfilled";
   button.style.backgroundColor = "#008000";
   button.addEventListener("click", function() {
-    const UID = message.id;
-
+    const messageIdentifier = message.id + " " + message.user;
+    
     fetch('/entitymanager', {
       method: 'POST',
-      body: JSON.stringify(UID),
+      body: JSON.stringify(messageIdentifier),
       headers: {
         'Content-Type': 'application/json'
       }
