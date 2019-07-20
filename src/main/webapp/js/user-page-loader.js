@@ -98,7 +98,7 @@ function buildMessageDiv(message) {
   button.addEventListener("click", function() {
     const messageIdentifier = message.id + " " + message.user;
     
-    fetch('/entitymanager', {
+    fetch('/label-editor', {
       method: 'POST',
       body: JSON.stringify(messageIdentifier),
       headers: {
@@ -110,12 +110,22 @@ function buildMessageDiv(message) {
     })
   })
 
-  // Give user a delete button
+  // Give user a delete button to delete a message
   const deleteButton = document.createElement("button");
   deleteButton.innerHTML = "Delete post";
   deleteButton.addEventListener("click", function() {
-    console.log("Delete button pressed");
-    console.log(message.text);
+    const messageIdentifier = message.id + " " + message.user;
+
+    fetch('/entity-remover', {
+      method: 'POST',
+      body: JSON.stringify(messageIdentifier),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      window.location.replace(response.url);
+    })
   })
 
   headerDiv.appendChild(button);

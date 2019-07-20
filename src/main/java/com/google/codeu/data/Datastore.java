@@ -23,7 +23,6 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.repackaged.com.google.datastore.v1.Key;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class Datastore {
     datastore = DatastoreServiceFactory.getDatastoreService();
   }
 
-  public Entity getMessageEntity(String userEmail, String messageId) {
+  public Entity getSpecificMessageEntity(String userEmail, String messageId) {
     Query query = new Query("Message")
         .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, userEmail))
         .addSort("timestamp", SortDirection.DESCENDING);
@@ -67,6 +66,10 @@ public class Datastore {
 
   public void storeEntity(Entity entity) {
     datastore.put(entity);
+  }
+
+  public void deleteEntity(Entity entity) {
+    datastore.delete(entity.getKey());
   }
 
   /** Returns the total number of messages for all users. */
