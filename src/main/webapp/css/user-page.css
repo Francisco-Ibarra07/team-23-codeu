@@ -73,3 +73,9 @@
 .hidden {
   display: none;
 }
+
+.label {
+  color: white;
+  padding: 6px;
+  font-family: Arial;
+}
