@@ -92,10 +92,10 @@ function buildMessageDiv(message) {
   headerDiv.appendChild(label);
 
   // Give user a fullfilment button
-  const button = document.createElement("button");
-  button.innerHTML = "Set as fulfilled";
-  button.style.backgroundColor = "#008000";
-  button.addEventListener("click", function() {
+  const setAsFulflledButton = document.createElement("button");
+  setAsFulflledButton.innerHTML = "Set as fulfilled";
+  setAsFulflledButton.style.backgroundColor = "#008000";
+  setAsFulflledButton.addEventListener("click", function() {
     const messageIdentifier = message.id + " " + message.user;
     
     fetch('/label-editor', {
@@ -128,9 +128,50 @@ function buildMessageDiv(message) {
     })
   })
 
-  headerDiv.appendChild(button);
-  headerDiv.appendChild(deleteButton);
+  // Give user an edit button to edit an existing message
+  const editButton = document.createElement("button");
+  editButton.innerHTML = "Edit post";
+  editButton.addEventListener("click", function() {
+    
+    // Create a form and its div
+    const form = document.createElement("form");
+    const formDiv = document.createElement('div');
+    
+    // Create a submit button
+    const submitButton = document.createElement("input");
+    submitButton.setAttribute("type", "submit");
+    submitButton.setAttribute("value", "Submit");
 
+    // Create text area for the new edited text
+    const textBox = document.createElement("textarea");
+    textBox.setAttribute("name", "text");
+    textBox.setAttribute("id", "edited-message-input");
+
+    // Take note of the messageId in a textarea element. This textbox is hidden
+    // from the user and is only used by the servlet
+    const messageId = document.createElement("textarea");
+    messageId.value = message.id;
+    messageId.setAttribute("name", "messageId");
+    messageId.setAttribute("style", "display:none");
+
+    // Add a new div to the header for the form text box
+    headerDiv.appendChild(formDiv);
+    formDiv.appendChild(form);
+
+    // Set the form attributes
+    form.setAttribute("id", "edited-message-form");
+    form.setAttribute("action", "/entity-editor");
+    form.setAttribute("method", "POST");
+    form.appendChild(textBox);
+    form.appendChild(messageId);
+    form.appendChild(submitButton);
+  })
+  
+  // Add all buttons to the header of the message
+  headerDiv.appendChild(setAsFulflledButton);
+  headerDiv.appendChild(deleteButton);
+  headerDiv.appendChild(editButton);
+  
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
@@ -139,7 +180,7 @@ function buildMessageDiv(message) {
   messageDiv.classList.add('message-div');
   messageDiv.appendChild(headerDiv);
   messageDiv.appendChild(bodyDiv);
-
+  
   return messageDiv;
 }
 
