@@ -105,7 +105,9 @@ function buildMessageDiv(message) {
         'Content-Type': 'application/json'
       }
     })
-    .then(response => console.log(response))
+    .then((response) => {
+      window.location.replace(response.url);
+    })
   })
 
   // Give user a delete button
