@@ -17,11 +17,14 @@ limitations under the License.
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <title>User Page</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
-    <script src="/js/user-page-loader.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdoTmSnZmgvvWPSBtOd79Ae20aYhfMGN8"></script>
+    <!-- <script src="/js/user-page-loader.js"></script> -->
+
     <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   </head>
@@ -35,10 +38,19 @@ limitations under the License.
         <li><a href="feed.html"> Public Feed </a></li>
       </ul>
     </nav>
+
+    
     <h1 id="page-title">User Page</h1>
     <p> This is a single user's personal page. They can update their personal information here (their address or pickup location for items, for example) and can also post items they want to trade (these posts will also appear on the public feed).</p>
     <div id="about-me-container">Loading...</div>
       <div id="about-me-form" class="hidden">
+
+          <p>Click the button to get your coordinates.</p>
+          <button onclick="getLocation()">Get My Location</button>
+          <p id="demo"></p>
+          <script src="/js/user-page-loader.js"></script>
+        
+
       <form action="/about" method="POST">
         <textarea name="about-me" placeholder="Enter your information" rows=4 required></textarea>
         <br/>
