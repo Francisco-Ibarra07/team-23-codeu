@@ -23,6 +23,8 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.repackaged.com.google.datastore.v1.Key;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -49,8 +51,9 @@ public class Datastore {
     Entity messageEntity = new Entity("Message", message.getId().toString());
     messageEntity.setProperty("user", message.getUser());
     messageEntity.setProperty("text", message.getText());
+    messageEntity.setProperty("isFulfilled", message.getIsFulfilled());
     messageEntity.setProperty("timestamp", message.getTimestamp());
-
+    
     datastore.put(messageEntity);
   }
 
@@ -75,8 +78,9 @@ public class Datastore {
         UUID id = UUID.fromString(idString);
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
+        Boolean isFulfilled = (Boolean) entity.getProperty("isFulfilled");
 
-        Message message = new Message(id, user, text, timestamp);
+        Message message = new Message(id, user, text, timestamp, isFulfilled);
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");
@@ -110,9 +114,10 @@ public class Datastore {
         String user = (String) entity.getProperty("user");
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
-
+        Boolean isFulfilled = (Boolean) entity.getProperty("isFulfilled");
+        
         // A Message object is constructed from a user's UUID, user's email, their message, and a timestamp
-        Message message = new Message(id, user, text, timestamp);
+        Message message = new Message(id, user, text, timestamp, isFulfilled);
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");
