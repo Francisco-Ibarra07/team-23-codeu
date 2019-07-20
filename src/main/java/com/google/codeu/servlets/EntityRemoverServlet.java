@@ -18,7 +18,6 @@ package com.google.codeu.servlets;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.codeu.data.Datastore;
-import com.google.codeu.data.Message;
 
 import java.io.IOException;
 
