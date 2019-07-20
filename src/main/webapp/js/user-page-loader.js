@@ -38,8 +38,7 @@ function showMessageFormIfViewingSelf() {
         return response.json();
       })
       .then((loginStatus) => {
-        if (loginStatus.isLoggedIn &&
-            loginStatus.username == parameterUsername) {
+        if (loginStatus.isLoggedIn && loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
         }
@@ -78,6 +77,47 @@ function buildMessageDiv(message) {
   headerDiv.classList.add('message-header');
   headerDiv.appendChild(document.createTextNode(
       message.user + ' - ' + new Date(message.timestamp)));
+  
+  // Create label
+  let label = document.createElement("span");
+  label.className = "label";
+  if (message.isFulfilled) {
+    label.innerHTML = "Fulfilled";
+    label.style.backgroundColor = "#008000";
+  }
+  else {
+    label.innerHTML = "Still Available";
+    label.style.backgroundColor = "#4CAF50";
+  }
+  headerDiv.appendChild(label);
+
+  // Give user a fullfilment button
+  const button = document.createElement("button");
+  button.innerHTML = "Set as fulfilled";
+  button.style.backgroundColor = "#008000";
+  button.addEventListener("click", function() {
+    const UID = message.id;
+
+    fetch('/entitymanager', {
+      method: 'POST',
+      body: JSON.stringify(UID),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => console.log(response))
+  })
+
+  // Give user a delete button
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "Delete post";
+  deleteButton.addEventListener("click", function() {
+    console.log("Delete button pressed");
+    console.log(message.text);
+  })
+
+  headerDiv.appendChild(button);
+  headerDiv.appendChild(deleteButton);
 
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
