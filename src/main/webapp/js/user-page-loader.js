@@ -94,7 +94,7 @@ function buildMessageDiv(message) {
   // Give user a fullfilment button
   const setAsFulflledButton = document.createElement("button");
   setAsFulflledButton.innerHTML = "Set as fulfilled";
-  setAsFulflledButton.style.backgroundColor = "#008000";
+  setAsFulflledButton.style.alignSelf = "right";
   setAsFulflledButton.addEventListener("click", function() {
     const messageIdentifier = message.id + " " + message.user;
     
@@ -113,6 +113,7 @@ function buildMessageDiv(message) {
   // Give user a delete button to delete a message
   const deleteButton = document.createElement("button");
   deleteButton.innerHTML = "Delete post";
+  deleteButton.style.alignSelf = "right";
   deleteButton.addEventListener("click", function() {
     const messageIdentifier = message.id + " " + message.user;
 
@@ -131,8 +132,9 @@ function buildMessageDiv(message) {
   // Give user an edit button to edit an existing message
   const editButton = document.createElement("button");
   editButton.innerHTML = "Edit post";
+  editButton.style.alignSelf = "right";
   editButton.addEventListener("click", function() {
-    
+
     // Create a form and its div
     const form = document.createElement("form");
     const formDiv = document.createElement('div');
