@@ -42,6 +42,20 @@
         headerDiv.appendChild(usernameDiv);
         headerDiv.appendChild(timeDiv);
         
+        const fulfilledIndicator = document.createElement("button");
+        let label = document.createElement("span");
+
+        if (message.isFulfilled) {
+          label.innerHTML = "Fullfilled";
+          label.style.backgroundColor = "#008000";
+        }
+        else {
+          label.innerHTML = "Still Available";
+          label.style.backgroundColor = "#4CAF50";
+        }
+
+        headerDiv.appendChild(label);
+
         const bodyDiv = document.createElement('div');
         bodyDiv.classList.add('message-body');
         // Sets this div's content to be what was read from Datastore

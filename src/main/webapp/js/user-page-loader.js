@@ -38,8 +38,7 @@ function showMessageFormIfViewingSelf() {
         return response.json();
       })
       .then((loginStatus) => {
-        if (loginStatus.isLoggedIn &&
-            loginStatus.username == parameterUsername) {
+        if (loginStatus.isLoggedIn && loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
         }
@@ -78,7 +77,103 @@ function buildMessageDiv(message) {
   headerDiv.classList.add('message-header');
   headerDiv.appendChild(document.createTextNode(
       message.user + ' - ' + new Date(message.timestamp)));
+  
+  // Create label
+  let label = document.createElement("span");
+  label.className = "label";
+  if (message.isFulfilled) {
+    label.innerHTML = "Fulfilled";
+    label.style.backgroundColor = "#008000";
+  }
+  else {
+    label.innerHTML = "Still Available";
+    label.style.backgroundColor = "#4CAF50";
+  }
+  headerDiv.appendChild(label);
 
+  // Give user a fullfilment button
+  const setAsFulflledButton = document.createElement("button");
+  setAsFulflledButton.innerHTML = "Set as fulfilled";
+  setAsFulflledButton.style.alignSelf = "right";
+  setAsFulflledButton.addEventListener("click", function() {
+    const messageIdentifier = message.id + " " + message.user;
+    
+    fetch('/label-editor', {
+      method: 'POST',
+      body: JSON.stringify(messageIdentifier),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      window.location.replace(response.url);
+    })
+  })
+
+  // Give user a delete button to delete a message
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "Delete post";
+  deleteButton.style.alignSelf = "right";
+  deleteButton.addEventListener("click", function() {
+    const messageIdentifier = message.id + " " + message.user;
+
+    fetch('/entity-remover', {
+      method: 'POST',
+      body: JSON.stringify(messageIdentifier),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      window.location.replace(response.url);
+    })
+  })
+
+  // Give user an edit button to edit an existing message
+  const editButton = document.createElement("button");
+  editButton.innerHTML = "Edit post";
+  editButton.style.alignSelf = "right";
+  editButton.addEventListener("click", function() {
+
+    // Create a form and its div
+    const form = document.createElement("form");
+    const formDiv = document.createElement('div');
+    
+    // Create a submit button
+    const submitButton = document.createElement("input");
+    submitButton.setAttribute("type", "submit");
+    submitButton.setAttribute("value", "Submit");
+
+    // Create text area for the new edited text
+    const textBox = document.createElement("textarea");
+    textBox.setAttribute("name", "text");
+    textBox.setAttribute("id", "edited-message-input");
+
+    // Take note of the messageId in a textarea element. This textbox is hidden
+    // from the user and is only used by the servlet
+    const messageId = document.createElement("textarea");
+    messageId.value = message.id;
+    messageId.setAttribute("name", "messageId");
+    messageId.setAttribute("style", "display:none");
+
+    // Add a new div to the header for the form text box
+    headerDiv.appendChild(formDiv);
+    formDiv.appendChild(form);
+
+    // Set the form attributes
+    form.setAttribute("id", "edited-message-form");
+    form.setAttribute("action", "/entity-editor");
+    form.setAttribute("method", "POST");
+    form.appendChild(textBox);
+    form.appendChild(messageId);
+    form.appendChild(submitButton);
+  })
+  
+  // Add all buttons to the header of the message
+  headerDiv.appendChild(setAsFulflledButton);
+  headerDiv.appendChild(deleteButton);
+  headerDiv.appendChild(editButton);
+  
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
@@ -87,7 +182,7 @@ function buildMessageDiv(message) {
   messageDiv.classList.add('message-div');
   messageDiv.appendChild(headerDiv);
   messageDiv.appendChild(bodyDiv);
-
+  
   return messageDiv;
 }
 

@@ -23,6 +23,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -37,6 +38,40 @@ public class Datastore {
     datastore = DatastoreServiceFactory.getDatastoreService();
   }
 
+  public Entity getSpecificMessageEntity(String userEmail, String messageId) {
+    Query query = new Query("Message")
+        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, userEmail))
+        .addSort("timestamp", SortDirection.DESCENDING);
+    
+    PreparedQuery results = datastore.prepare(query);
+    UUID targetId = UUID.fromString(messageId);
+    
+    for (Entity entity : results.asIterable()) {
+      try {
+        String idString = entity.getKey().getName();
+        UUID id = UUID.fromString(idString);
+        
+        if (targetId.equals(id)) {
+          return entity;
+        }
+      } catch (Exception e) {
+        System.err.println("Error reading message.");
+        System.err.println(entity.toString());
+        e.printStackTrace();
+      }
+    }
+
+    return null;
+  }
+
+  public void storeEntity(Entity entity) {
+    datastore.put(entity);
+  }
+
+  public void deleteEntity(Entity entity) {
+    datastore.delete(entity.getKey());
+  }
+
   /** Returns the total number of messages for all users. */
   public int getTotalMessageCount(){
     Query query = new Query("Message");
@@ -49,8 +84,9 @@ public class Datastore {
     Entity messageEntity = new Entity("Message", message.getId().toString());
     messageEntity.setProperty("user", message.getUser());
     messageEntity.setProperty("text", message.getText());
+    messageEntity.setProperty("isFulfilled", message.getIsFulfilled());
     messageEntity.setProperty("timestamp", message.getTimestamp());
-
+    
     datastore.put(messageEntity);
   }
 
@@ -75,8 +111,9 @@ public class Datastore {
         UUID id = UUID.fromString(idString);
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
+        Boolean isFulfilled = (Boolean) entity.getProperty("isFulfilled");
 
-        Message message = new Message(id, user, text, timestamp);
+        Message message = new Message(id, user, text, timestamp, isFulfilled);
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");
@@ -110,9 +147,10 @@ public class Datastore {
         String user = (String) entity.getProperty("user");
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
-
+        Boolean isFulfilled = (Boolean) entity.getProperty("isFulfilled");
+        
         // A Message object is constructed from a user's UUID, user's email, their message, and a timestamp
-        Message message = new Message(id, user, text, timestamp);
+        Message message = new Message(id, user, text, timestamp, isFulfilled);
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");
