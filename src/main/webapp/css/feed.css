@@ -1,0 +1,18 @@
+
+.message-div{
+	border-width: .5px;
+	border-color: #919191; 
+	border-top: none; 
+}
+.message-header{
+	border: none;
+	background-color: #667AFA;
+	opacity: .9; 
+	color: white; 
+	font-size: 16px;
+}
+
+.message-body{
+	border: none;
+	font-size: 14px;
+}
